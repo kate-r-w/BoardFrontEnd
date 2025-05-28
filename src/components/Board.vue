@@ -1,6 +1,13 @@
 <script setup>
 import Position from './Position.vue';
 import { ref } from 'vue';
+import { onMounted } from 'vue';
+import { useBoardStore } from '../stores/board';
+
+const boardStore = useBoardStore();
+onMounted(() => {
+  boardStore.getDeck();
+});
 
 var stones = ref([
   { id: 0 },

@@ -1,24 +1,25 @@
 <script setup>
-import { ref } from 'vue';
-// Reactive property to store selected numbers
+import { ref, computed } from 'vue';
+import { useBoardStore } from '../stores/board';
+
+const boardStore = useBoardStore();
 const cardCombination = ref([]);
 
-// Reactive properties for the current card selection
-const selectedNumber = ref(null);
-const selectedColor = ref(null);
+const availableCards = computed(() => boardStore.deck);
+
+var selectedCard = null;
 
 // Function to add a card to the combination
 function addCard() {
-  if (selectedNumber.value && selectedColor.value && cardCombination.value.length < 3) {
-    // Create a card object and add it to the combination
-    cardCombination.value.push({
-      number: selectedNumber.value,
-      color: selectedColor.value,
-    });
+  if (cardCombination.value.length < 3) {
+    // Add the card to the combination
+    cardCombination.value.push(selectedCard);
 
-    // Reset the current selection
-    selectedNumber.value = null;
-    selectedColor.value = null;
+    // Remove the card from the deck
+    boardStore.removeFromDeck(selectedCard);
+
+    // Reset the selected card
+    selectedCard = null;
   }
 }
 
@@ -27,26 +28,18 @@ defineProps({
 </script>
 <template>
   <td class="position">
-    <div class="card-selection">
-      <label for="number">Select Number:</label>
-      <select id="number" v-model="selectedNumber">
-        <option disabled value="">Choose a number</option>
-        <option v-for="number in 9" :key="number" :value="number">
-          {{ number }}
+    <div class="card-selection" v-if="cardCombination.length < 3">
+      <label for="card">Select Card:</label>
+      <select v-model="selectedCard" id="card" @change="addCard()">
+        <option disabled value="">Choose a card</option>
+        <option
+          v-for="card in availableCards"
+          :key="card"
+          :value="card"
+        >
+          {{ card.value }} {{ card.color }}
         </option>
       </select>
-
-      <label for="color">Select Color:</label>
-      <select id="color" v-model="selectedColor">
-        <option disabled value="">Choose a color</option>
-        <option v-for="color in ['blue', 'green', 'red', 'purple', 'brown', 'yellow']" :key="color" :value="color">
-          {{ color }}
-        </option>
-      </select>
-
-      <button @click="addCard" :disabled="!selectedNumber || !selectedColor">
-        Add Card
-      </button>
     </div>
 
     <!-- Display selected cards -->
@@ -58,12 +51,13 @@ defineProps({
           :style="{ color: card.color, borderColor: card.color }"
           class="card-item"
         >
-          {{ card.number }}
+          {{ card.value }}
         </li>
       </ul>
     </div>
   </td>
 </template>
+
 <style scoped>
 .card-selection {
   margin-bottom: 10px;
