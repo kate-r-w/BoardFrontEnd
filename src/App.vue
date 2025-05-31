@@ -4,7 +4,7 @@ import Board from './components/Board.vue'
 
 <template>
   <main>
-    <Board msg="test" />
+    <Board />
   </main>
 </template>
 

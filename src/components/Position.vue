@@ -8,19 +8,12 @@ const availableCards = computed(() => boardStore.deck);
 
 var selectedCard = null;
 
-// Function to add a card to the combination
+// Add a card to the combination
 function addCard() {
   if (cardCombination.value.length < 3) {
-    // Add the card to the combination
     cardCombination.value.push(selectedCard);
-
-    // Remove the card from the deck
     boardStore.removeFromDeck(selectedCard);
-
-    // Reset the selected card
     selectedCard = null;
-
-    //check board
     boardStore.boardCheck();
   }
 }
@@ -28,17 +21,18 @@ function addCard() {
 const props = defineProps({
   stoneId: {
     type: Number,
-    required: true
+    required: true,
   },
   player: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 const uniqueid = props.player + props.stoneId;
 const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.player));
 </script>
+
 <template>
   <td class="position">
     <div class="card-selection" v-if="cardCombination.length < 3">
@@ -61,7 +55,7 @@ const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.p
         <li
           v-for="(card, index) in cardCombination"
           :key="index"
-          :style="{ color: card.color, borderColor: card.color }"
+          :class="card.color"
           class="card-item"
         >
           {{ card.value }}
@@ -72,22 +66,9 @@ const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.p
 </template>
 
 <style scoped>
+
 .card-selection {
   margin-bottom: 10px;
-}
-
-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  background-color: #4caf50;
-  color: white;
-  cursor: pointer;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
 }
 
 .selected-cards {
@@ -106,5 +87,35 @@ ul {
   margin: 5px 0;
   text-align: center;
   border-radius: 5px;
+}
+
+.card-item.Yellow{
+  color: #FFD700;
+  border-color: #FFD700;
+}
+
+.card-item.Brown {
+  color: #8B4513;
+  border-color: #8B4513;
+}
+
+.card-item.Blue {
+  color: #1E90FF;
+  border-color: #1E90FF;
+}
+
+.card-item.Purple {
+  color: #9370DB;
+  border-color: #9370DB;
+}
+
+.card-item.Red {
+  color: #FF4500;
+  border-color: #FF4500;
+}
+
+.card-item.Green {
+  color: #32CD32;
+  border-color: #32CD32;
 }
 </style>

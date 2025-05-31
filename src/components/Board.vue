@@ -19,8 +19,7 @@ defineProps({
   <table id="board">
     <tbody>
       <tr class="otherPlayer">
-        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerOne">
-        </Position>
+        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerOne" />
       </tr>
       <tr class="stone">
         <td v-for="stone in stones" class="stone" :key="stone.id">
@@ -28,8 +27,7 @@ defineProps({
         </td>
       </tr>
       <tr class="myPlayer">
-        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerTwo">
-        </Position>
+        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerTwo" />
       </tr>
     </tbody>
   </table>
