@@ -9,17 +9,7 @@ onMounted(() => {
   boardStore.getDeck();
 });
 
-var stones = ref([
-  { id: 0 },
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-]);
+var stones = ref(boardStore.stones);
 
 defineProps({
 })
@@ -27,20 +17,23 @@ defineProps({
 
 <template>
   <table id="board">
-    <tr class="otherPlayer">
-      <Position v-for="(stone, index) in stones" :key="index">
-      </Position>
-    </tr>
-    <tr class="stone">
-      <td v-for="(stone, index) in stones" :key="index">
-        <div class="stoneImage"></div>
-      </td>
-    </tr>
-    <tr class="myPlayer">
-      <Position v-for="(stone, index) in stones" :key="index">
-      </Position>
-    </tr>
+    <tbody>
+      <tr class="otherPlayer">
+        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerOne">
+        </Position>
+      </tr>
+      <tr class="stone">
+        <td v-for="stone in stones" class="stone" :key="stone.id">
+          <div class="stoneImage" :class="stone.Winner"></div>
+        </td>
+      </tr>
+      <tr class="myPlayer">
+        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerTwo">
+        </Position>
+      </tr>
+    </tbody>
   </table>
+  <button @click="boardStore.boardCheck()">Check Board</button>
 </template>
 
 <style scoped>
@@ -54,10 +47,23 @@ td {
   padding: 5px;
   border: 1px solid black;
 }
+td.stone {
+  height: 150px;
+  vertical-align: top;
+}
 div.stoneImage {
   width: 50px;
   height: 50px;
   background-color: #ccc;
   border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+div.Two {
+  margin-top: 100px;
+}
+div.One {
+  margin-top: 0px;
 }
 </style>

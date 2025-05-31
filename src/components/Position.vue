@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 import { useBoardStore } from '../stores/board';
 
 const boardStore = useBoardStore();
-const cardCombination = ref([]);
 
 const availableCards = computed(() => boardStore.deck);
 
@@ -23,14 +22,25 @@ function addCard() {
   }
 }
 
-defineProps({
+const props = defineProps({
+  stoneId: {
+    type: Number,
+    required: true
+  },
+  player: {
+    type: String,
+    required: true
+  }
 })
+
+const uniqueid = props.player + props.stoneId;
+const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.player));
 </script>
 <template>
   <td class="position">
     <div class="card-selection" v-if="cardCombination.length < 3">
-      <label for="card">Select Card:</label>
-      <select v-model="selectedCard" id="card" @change="addCard()">
+      <label :for="uniqueid">Select Card:</label>
+      <select v-model="selectedCard" :id="uniqueid" @change="addCard()">
         <option disabled value="">Choose a card</option>
         <option
           v-for="card in availableCards"
