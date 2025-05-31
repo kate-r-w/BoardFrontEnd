@@ -33,7 +33,6 @@ defineProps({
       </tr>
     </tbody>
   </table>
-  <button @click="boardStore.boardCheck()">Check Board</button>
 </template>
 
 <style scoped>

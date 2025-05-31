@@ -19,6 +19,9 @@ function addCard() {
 
     // Reset the selected card
     selectedCard = null;
+
+    //check board
+    boardStore.boardCheck();
   }
 }
 
