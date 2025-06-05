@@ -11,56 +11,51 @@ onMounted(() => {
 
 var stones = ref(boardStore.stones);
 
-defineProps({
-})
+function getStoneImage(stoneIndex) {
+  return new URL(`../assets/images/stone${stoneIndex + 1}.png`, import.meta.url).href;
+}
 </script>
-
 <template>
-  <table id="board">
-    <tbody>
-      <tr class="otherPlayer">
-        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerOne" />
-      </tr>
-      <tr class="stone">
-        <td v-for="stone in stones" class="stone" :key="stone.id">
-          <div class="stoneImage" :class="stone.Winner"></div>
-        </td>
-      </tr>
-      <tr class="myPlayer">
-        <Position v-for="stone in stones" :key="stone.id" :stoneId="stone.id" player="PlayerTwo" />
-      </tr>
-    </tbody>
-  </table>
+  <div id="board">
+    <div v-for="stone in stones" class="stone" :key="stone.id">
+        <Position :key="stone.id" :stoneId="stone.id" player="PlayerOne" :stoneImage="getStoneImage(stone.id)" />
+          <div :class="stone.Winner"
+            class="stoneImage"
+            :style="{ backgroundImage: `url(${ getStoneImage(stone.id) })` }"
+          ></div>
+        <Position :key="stone.id" :stoneId="stone.id" player="PlayerTwo" :stoneImage="getStoneImage(stone.id)" />
+      </div>
+  </div>
 </template>
-
 <style scoped>
-table#board {
-  width: 100%;
+div#board {
+  margin: auto;
+  border-collapse: separate;
+  border: 1px solid black;
+  height: 97vh;
+  width: 97vw;
+  display: flex;
+}
+
+div.stone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 11%;
   height: 100%;
-  border: 1px solid black;
 }
-td {
-  margin: 5px;
-  padding: 5px;
-  border: 1px solid black;
-}
-td.stone {
-  height: 150px;
-  vertical-align: top;
-}
+
 div.stoneImage {
-  width: 50px;
-  height: 50px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
+  height: 15vh;
+  width: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: auto;
 }
-div.Two {
-  margin-top: 100px;
-}
-div.One {
-  margin-top: 0px;
+
+div.stoneImage.One, div.stoneImage.Two {
+  background: none;
 }
 </style>

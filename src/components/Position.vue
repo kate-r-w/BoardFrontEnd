@@ -7,15 +7,20 @@ const boardStore = useBoardStore();
 const availableCards = computed(() => boardStore.deck);
 
 var selectedCard = null;
+const showDropdown = ref(false);
 
-// Add a card to the combination
 function addCard() {
   if (cardCombination.value.length < 3) {
     cardCombination.value.push(selectedCard);
     boardStore.removeFromDeck(selectedCard);
     selectedCard = null;
     boardStore.boardCheck();
+    showDropdown.value = false;
   }
+}
+
+function toggleDropdown() {
+  showDropdown.value = true;
 }
 
 const props = defineProps({
@@ -27,29 +32,43 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  stoneImage: {
+    type: String,
+    required: true,
+  },
+
 });
 
 const uniqueid = props.player + props.stoneId;
 const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.player));
+const stone = ref(boardStore.getStone(props.stoneId));
+const isWinner = computed(() => {
+  //todo: standardize these naming conventions
+  var me = props.player === 'PlayerOne' ? 'One' : 'Two';
+  return stone.value.Winner === me;
+  });
 </script>
 
 <template>
-  <td class="position">
-    <div class="card-selection" v-if="cardCombination.length < 3">
-      <label :for="uniqueid">Select Card:</label>
-      <select v-model="selectedCard" :id="uniqueid" @change="addCard()">
-        <option disabled value="">Choose a card</option>
-        <option
-          v-for="card in availableCards"
-          :key="card"
-          :value="card"
-        >
-          {{ card.value }} {{ card.color }}
-        </option>
-      </select>
+  <div class="position" :class="props.player">
+    <div class="addCardSection">
+      <button class="add-card-button" @click="toggleDropdown" v-if="!showDropdown && cardCombination.length < 3">
+        +
+      </button>
+      <div class="card-selection" v-if="showDropdown && cardCombination.length < 3">
+        <select v-model="selectedCard" :id="uniqueid" @change="addCard()">
+          <option disabled value="">Choose a card</option>
+          <option
+            v-for="card in availableCards"
+            :key="card"
+            :value="card"
+          >
+            {{ card.value }} {{ card.color }}
+          </option>
+        </select>
+      </div>
     </div>
 
-    <!-- Display selected cards -->
     <div class="selected-cards">
       <ul>
         <li
@@ -62,17 +81,43 @@ const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.p
         </li>
       </ul>
     </div>
-  </td>
+    <div class="wonStone" v-if="isWinner" :style="{ backgroundImage: `url(${ props.stoneImage })` }"></div>
+  </div>
 </template>
 
 <style scoped>
-
-.card-selection {
-  margin-bottom: 10px;
+.add-card-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-.selected-cards {
-  margin-top: 20px;
+div.position {
+  height: 40vh;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+}
+
+div.position.PlayerOne {
+  flex-direction: column-reverse;
+}
+
+div.selected-cards {
+  width: 100%;
+}
+
+div.addCardSection {
+  height: 37px;
+}
+
+.add-card-button:hover {
+  background-color: #45A049;
 }
 
 ul {
@@ -89,9 +134,9 @@ ul {
   border-radius: 5px;
 }
 
-.card-item.Yellow{
-  color: #FFD700;
-  border-color: #FFD700;
+.card-item.Yellow {
+  color: #FFC300;
+  border-color: #FFC300;
 }
 
 .card-item.Brown {
@@ -100,22 +145,31 @@ ul {
 }
 
 .card-item.Blue {
-  color: #1E90FF;
-  border-color: #1E90FF;
+  color: #0074D9;
+  border-color: #0074D9;
 }
 
 .card-item.Purple {
-  color: #9370DB;
-  border-color: #9370DB;
+  color: #6A0DAD;
+  border-color: #6A0DAD;
 }
 
 .card-item.Red {
-  color: #FF4500;
-  border-color: #FF4500;
+  color: #C70039;
+  border-color: #C70039;
 }
 
 .card-item.Green {
-  color: #32CD32;
-  border-color: #32CD32;
+  color: #2ECC71;
+  border-color: #2ECC71;
+}
+
+div.wonStone {
+  height: 15vh;
+  width: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: auto;
 }
 </style>
