@@ -31,7 +31,6 @@ function getStoneImage(stoneIndex) {
 div#board {
   margin: auto;
   border-collapse: separate;
-  border: 1px solid black;
   height: 97vh;
   width: 97vw;
   display: flex;

@@ -47,15 +47,18 @@ const isWinner = computed(() => {
   var me = props.player === 'PlayerOne' ? 'One' : 'Two';
   return stone.value.Winner === me;
   });
+const canAddCard = computed(() => {
+  return cardCombination.value.length < 3 && stone.value.Winner === null && availableCards.value.length > 0;
+});
 </script>
 
 <template>
   <div class="position" :class="props.player">
     <div class="addCardSection">
-      <button class="add-card-button" @click="toggleDropdown" v-if="!showDropdown && cardCombination.length < 3">
+      <button class="add-card-button" @click="toggleDropdown" v-if="!showDropdown && canAddCard">
         +
       </button>
-      <div class="card-selection" v-if="showDropdown && cardCombination.length < 3">
+      <div class="card-selection" v-if="showDropdown && canAddCard">
         <select v-model="selectedCard" :id="uniqueid" @change="addCard()">
           <option disabled value="">Choose a card</option>
           <option
@@ -128,10 +131,11 @@ ul {
 .card-item {
   font-weight: bold;
   border: 2px solid;
-  padding: 10px;
-  margin: 5px 0;
-  text-align: center;
+  padding: 5px 10px;
+  text-align: right;
   border-radius: 5px;
+  margin: -7px 10px 0px 10px;
+  background-color: #FCF5E5;
 }
 
 .card-item.Yellow {
