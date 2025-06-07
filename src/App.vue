@@ -3,9 +3,7 @@ import Board from './components/Board.vue'
 </script>
 
 <template>
-  <main>
-    <Board />
-  </main>
+  <router-view />
 </template>
 
 <style scoped>
