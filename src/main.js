@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import './assets/main.css';
 import { createRouter, createWebHistory } from 'vue-router';
-import BoardChecker from './components/Board.vue';
+import BoardChecker from './components/BoardChecker.vue';
 import SplashScreen from './components/SplashScreen.vue';
 import PlayVsAI from './components/PlayVsAI.vue';
 

@@ -1,5 +1,5 @@
 <script setup>
-import Board from './components/Board.vue'
+import Board from './components/BoardChecker.vue'
 </script>
 
 <template>

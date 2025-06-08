@@ -1,5 +1,5 @@
 <script setup>
-import Board from './Board.vue';
+import Board from './BoardChecker.vue';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useBoardStore } from '../stores/board';
