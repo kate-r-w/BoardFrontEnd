@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useBoardStore } from '../stores/board';
+import { useBoardStore } from '../stores/boardChecker';
 const boardStore = useBoardStore();
 
 const availableCards = computed(() => boardStore.deck);

@@ -1,19 +1,19 @@
 <script setup>
-import Board from './BoardChecker.vue';
-import { ref } from 'vue';
+import Board from './Board.vue';
 import { onMounted } from 'vue';
-import { useBoardStore } from '../stores/board';
+import { usePlayGameStore } from '../stores/playGame';
+import { ref } from 'vue';
 
-const boardStore = useBoardStore();
+const gameStore = usePlayGameStore();
 onMounted(() => {
-  boardStore.getDeck();
+  gameStore.getDeck();
 });
 
-var stones = ref(boardStore.stones);
+const stones = ref(gameStore.stones);
 </script>
 <template>
   <div class="play-vs-ai">
-    <Board />
+    <Board :stones="stones"/>
     <div>hand goes here</div>
   </div>
 </template>

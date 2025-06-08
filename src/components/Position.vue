@@ -3,9 +3,6 @@ import CardCombination from './CardCombination.vue';
 import Stone from './Stone.vue';
 import AddAnyCard from './AddAnyCard.vue';
 import { ref, computed } from 'vue';
-import { useBoardStore } from '../stores/board';
-
-const boardStore = useBoardStore();
 
 const props = defineProps({
   stoneId: {
@@ -15,21 +12,25 @@ const props = defineProps({
   player: {
     type: String,
     required: true,
-  }
+  },
+  stone: {
+    type: Object,
+    required: true,
+  },
 });
 
-const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.player));
-const stone = ref(boardStore.getStone(props.stoneId));
+const stone = props.stone;
+const cardCombination = stone[props.player];
 const isWinner = computed(() => {
   //todo: standardize these naming conventions
   var me = props.player === 'PlayerOne' ? 'One' : 'Two';
-  return stone.value.Winner === me;
+  return stone.Winner === me;
   });
 </script>
 
 <template>
   <div class="position" :class="props.player">
-    <AddAnyCard :stoneId="props.stoneId" :player="props.player" />
+    <slot name="addanycard"></slot>
     <CardCombination :cardCombination="cardCombination" />
     <Stone :isHidden="!isWinner" :stoneId="props.stoneId" />
   </div>
