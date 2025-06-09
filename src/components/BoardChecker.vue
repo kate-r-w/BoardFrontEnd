@@ -1,5 +1,6 @@
 <script setup>
 import Board from './Board.vue';
+import AddAnyCard from './AddAnyCard.vue';
 import { onMounted } from 'vue';
 import { useBoardStore } from '../stores/boardChecker';
 import { ref } from 'vue';
@@ -11,11 +12,17 @@ onMounted(() => {
 
 const stones = ref(boardStore.stones);
 </script>
+
 <template>
   <div id="board">
-    <Board :stones="stones"/>
+    <Board :stones="stones">
+      <template #addanycard="{ stoneId, player }">
+        <AddAnyCard :stoneId="stoneId" :player="player" />
+      </template>
+    </Board>
   </div>
 </template>
+
 <style scoped>
 div#board {
   margin: auto;

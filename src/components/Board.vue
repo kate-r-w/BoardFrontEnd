@@ -1,7 +1,6 @@
 <script setup>
 import Position from './Position.vue';
 import Stone from './Stone.vue';
-import AddAnyCard from './AddAnyCard.vue';
 
 defineProps({
   stones: {
@@ -10,21 +9,23 @@ defineProps({
   },
 });
 </script>
+
 <template>
   <div v-for="stone in stones" class="stone" :key="stone.id">
-    <Position :key="stone.id" :stoneId="stone.id" player="PlayerOne" :stone="stone">
-        <template #addanycard>
-            <AddAnyCard :stoneId="stone.id" player="PlayerOne"></AddAnyCard>
-        </template>
+    <Position :stoneId="stone.id" player="PlayerOne" :stone="stone">
+      <template #addanycard="{ stoneId, player }">
+        <slot name="addanycard" :stoneId="stone.id" :player="player"></slot>
+      </template>
     </Position>
     <Stone :isHidden="stone.Winner != null" :stoneId="stone.id" />
-    <Position :key="stone.id" :stoneId="stone.id" player="PlayerTwo" :stone="stone">
-        <template #addanycard>
-            <AddAnyCard :stoneId="stone.id" player="PlayerTwo"></AddAnyCard>
-        </template>
+    <Position :stoneId="stone.id" player="PlayerTwo" :stone="stone">
+      <template #addanycard="{ stoneId, player }">
+        <slot name="addanycard" :stoneId="stone.id" :player="player"></slot>
+      </template>
     </Position>
   </div>
 </template>
+
 <style scoped>
 div.stone {
   display: flex;
