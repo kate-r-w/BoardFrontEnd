@@ -20,8 +20,7 @@ export const usePlayGameStore = defineStore('playGame', {
   }),
   actions: {
     async getDeck() {
-      const response = await axios.get(`${API_BASE_URL}/getDeck`);
-      this.deck = response.data;
+      this.deck = await sharedLogic.getDeck();
     }
   },
 });
