@@ -1,8 +1,7 @@
 <script setup>
 import CardCombination from './CardCombination.vue';
 import Stone from './Stone.vue';
-import AddAnyCard from './AddAnyCard.vue';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
   stoneId: {
@@ -30,7 +29,7 @@ const isWinner = computed(() => {
 
 <template>
   <div class="position" :class="props.player">
-    <slot name="addanycard" :stoneid="props.stoneid" :player="props.player"></slot>
+    <slot name="addanycard" :stone="props.stone" :player="props.player"></slot>
     <CardCombination :cardCombination="cardCombination" />
     <Stone :isHidden="!isWinner" :stoneId="props.stoneId" />
   </div>

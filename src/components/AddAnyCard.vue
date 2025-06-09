@@ -23,8 +23,8 @@ function toggleDropdown() {
 }
 
 const props = defineProps({
-  stoneId: {
-    type: Number,
+  stone: {
+    type: Object,
     required: true,
   },
   player: {
@@ -33,11 +33,10 @@ const props = defineProps({
   }
 });
 
-const uniqueid = props.player + props.stoneId;
-const cardCombination = ref(boardStore.getCardCombination(props.stoneId, props.player));
-const stone = ref(boardStore.getStone(props.stoneId));
+const uniqueid = props.player + props.stone.id;
+const cardCombination = computed(() => props.stone[props.player]);
 const canAddCard = computed(() => {
-  return cardCombination.value.length < 3 && stone.value.Winner === null && availableCards.value.length > 0;
+  return cardCombination.value.length < 3 && props.stone.Winner === null && availableCards.value.length > 0;
 });
 </script>
 <template>

@@ -13,14 +13,14 @@ defineProps({
 <template>
   <div v-for="stone in stones" class="stone" :key="stone.id">
     <Position :stoneId="stone.id" player="PlayerOne" :stone="stone">
-      <template #addanycard="{ stoneId, player }">
-        <slot name="addanycard" :stoneId="stone.id" :player="player"></slot>
+      <template #addanycard="{ stone, player }">
+        <slot name="addanycard" :stone="stone" :player="player"></slot>
       </template>
     </Position>
     <Stone :isHidden="stone.Winner != null" :stoneId="stone.id" />
     <Position :stoneId="stone.id" player="PlayerTwo" :stone="stone">
-      <template #addanycard="{ stoneId, player }">
-        <slot name="addanycard" :stoneId="stone.id" :player="player"></slot>
+      <template #addanycard="{ stone, player }">
+        <slot name="addanycard" :stone="stone" :player="player"></slot>
       </template>
     </Position>
   </div>

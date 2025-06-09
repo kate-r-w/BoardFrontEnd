@@ -12,11 +12,17 @@ onMounted(() => {
 const stones = ref(gameStore.stones);
 </script>
 <template>
-  <div class="play-vs-ai">
+  <div id="play-vs-ai">
     <Board :stones="stones"/>
-    <div>hand goes here</div>
   </div>
 </template>
 
 <style scoped>
+div#play-vs-ai {
+  margin: auto;
+  border-collapse: separate;
+  height: 97vh;
+  width: 97vw;
+  display: flex;
+}
 </style>
