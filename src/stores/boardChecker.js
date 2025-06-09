@@ -36,21 +36,6 @@ export const useBoardStore = defineStore('board', {
     },
     removeFromDeck(card) {
         this.deck = this.deck.filter(c => c.color != card.color || c.value != card.value);
-    },
-    addCardToStone(card, stoneId, player) {
-      var stone = this.stones.find(s => s.id === stoneId);
-      if (stone) {
-        stone[player].push(card);
-      }
-    },
-    getCardCombination(stoneId, player) {
-      var stone = this.stones.find(s => s.id === stoneId);
-      if (stone) {
-        return stone[player];
-      }
-    },
-    getStone(stoneId) {
-      return this.stones.find(s => s.id === stoneId);
     }
   },
 });

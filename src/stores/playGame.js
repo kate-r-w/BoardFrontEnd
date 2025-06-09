@@ -19,38 +19,9 @@ export const usePlayGameStore = defineStore('playGame', {
       ],
   }),
   actions: {
-    async boardCheck() {
-      const response = await axios.post(`${API_BASE_URL}/StoneStatus`, { Board: this.stones });
-      if (response.status !== 200) {
-        throw new Error('Failed to check board status');
-      }
-      for (let i = 0; i < this.stones.length; i++) {
-        this.stones[i].Status = response.data[i].status;
-        this.stones[i].Winner = response.data[i].player;
-      }
-      return response.data;
-    },
     async getDeck() {
       const response = await axios.get(`${API_BASE_URL}/getDeck`);
       this.deck = response.data;
-    },
-    removeFromDeck(card) {
-        this.deck = this.deck.filter(c => c.color != card.color || c.value != card.value);
-    },
-    addCardToStone(card, stoneId, player) {
-      var stone = this.stones.find(s => s.id === stoneId);
-      if (stone) {
-        stone[player].push(card);
-      }
-    },
-    getCardCombination(stoneId, player) {
-      var stone = this.stones.find(s => s.id === stoneId);
-      if (stone) {
-        return stone[player];
-      }
-    },
-    getStone(stoneId) {
-      return this.stones.find(s => s.id === stoneId);
     }
   },
 });
