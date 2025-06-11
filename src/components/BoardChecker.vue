@@ -16,7 +16,7 @@ const stones = ref(boardStore.stones);
 <template>
   <div id="board">
     <Board :stones="stones">
-      <template #addanycard="{ stone, player }">
+      <template #addcard="{ stone, player }">
         <AddAnyCard :stone="stone" :player="player" />
       </template>
     </Board>

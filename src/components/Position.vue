@@ -29,7 +29,7 @@ const isWinner = computed(() => {
 
 <template>
   <div class="position" :class="props.player">
-    <slot name="addanycard" :stone="props.stone" :player="props.player"></slot>
+    <slot name="addcard" :stone="props.stone" :player="props.player"></slot>
     <CardCombination :cardCombination="cardCombination" />
     <Stone :isHidden="!isWinner" :stoneId="props.stoneId" />
   </div>
