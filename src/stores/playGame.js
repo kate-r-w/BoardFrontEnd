@@ -8,7 +8,8 @@ export const usePlayGameStore = defineStore('playGame', {
     deck: [],
     playerOneHand: [],
     playerTwoHand: [],
-    stones: [ ],
+    stones: [],
+    selectedCard: null,
   }),
   actions: {
     async deal() {
@@ -25,12 +26,12 @@ export const usePlayGameStore = defineStore('playGame', {
       }
     },
     async selectCard(card) {
-      //toggleSelection
-      card.selected = !card.selected;
-      //make sure no other card is selected
-      this.playerOneHand.forEach(c => {
-        if (c !== card) c.selected = false;
-      });
+      if (this.selectedCard == card) {
+        this.selectedCard = null;
+      }
+      else {
+        this.selectedCard = card;
+      }
     }
   },
 });

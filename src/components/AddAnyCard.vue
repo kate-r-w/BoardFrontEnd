@@ -36,7 +36,7 @@ const props = defineProps({
 const uniqueid = props.player + props.stone.id;
 const cardCombination = computed(() => props.stone[props.player]);
 const canAddCard = computed(() => {
-  return cardCombination.value.length < 3 && props.stone.Winner === null && availableCards.value.length > 0;
+  return cardCombination.value.length < 3 && props.stone.winner === null && availableCards.value.length > 0;
 });
 </script>
 <template>

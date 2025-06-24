@@ -13,8 +13,8 @@ export const sharedLogic = {
       throw new Error('Failed to update stone statuses');
     }
     for (let i = 0; i < stones.length; i++) {
-        stones[i].Status = response.data[i].status;
-        stones[i].Winner = response.data[i].player;
+        stones[i].status = response.data[i].status;
+        stones[i].winner = response.data[i].player;
       }
   },
 };

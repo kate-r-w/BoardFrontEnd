@@ -1,5 +1,6 @@
 <script setup>
 import { usePlayGameStore } from '../stores/playGame';
+import { computed } from 'vue';
 const gameStore = usePlayGameStore();
 
 const props = defineProps({
@@ -12,10 +13,12 @@ const props = defineProps({
 function selectCard(card) {
   gameStore.selectCard(card);
 }
+
+const selectedCard = computed(() => gameStore.selectedCard);
 </script>
 <template>
   <div id="hand">
-    <div v-for="card in hand" class="card" :class="card.color, { selected: card.selected }" @click="selectCard(card)">
+    <div v-for="card in hand" class="card" :class="card.color, { selected: card == selectedCard }" @click="selectCard(card)">
         {{ card.value }}
     </div>
   </div>

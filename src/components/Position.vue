@@ -19,11 +19,12 @@ const props = defineProps({
 });
 
 const stone = props.stone;
+//player casing is wrong on ai
 const cardCombination = stone[props.player];
 const isWinner = computed(() => {
   //todo: standardize these naming conventions
-  var me = props.player === 'PlayerOne' ? 'One' : 'Two';
-  return stone.Winner === me;
+  var me = props.player === 'playerOne' ? 'One' : 'Two';
+  return stone.winner === me;
   });
 </script>
 
@@ -44,7 +45,7 @@ div.position {
   flex-direction: column;
 }
 
-div.position.PlayerOne {
+div.position.playerOne {
   flex-direction: column-reverse;
 }
 </style>
