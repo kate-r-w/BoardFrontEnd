@@ -6,7 +6,9 @@ const playGameStore = usePlayGameStore();
 function addCard() {
   if (canAddCard) {
     cardCombination.value.push(playGameStore.selectedCard);
+    playGameStore.removeCardFromHand(playGameStore.selectedCard);
     playGameStore.selectedCard = null;
+    playGameStore.playCard();
   }
 }
 

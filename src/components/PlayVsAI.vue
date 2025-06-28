@@ -12,7 +12,7 @@ onMounted(() => {
 });
 
 const stones = ref(gameStore.stones);
-const hand = ref(gameStore.playerOneHand);
+const hand = ref(gameStore.playerTwoHand);
 </script>
 
 <template>
