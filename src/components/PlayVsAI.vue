@@ -17,7 +17,7 @@ const hand = ref(gameStore.playerTwoHand);
 
 <template>
   <div>
-    <div id="play-vs-ai">
+    <div id="play-vs-ai" :class="{ locked: gameStore.locked}">
       <Board :stones="stones">
         <template #addcard="{ stone, player }">
           <AddCardFromHand v-if="player == `playerTwo`" :stone="stone" :player="player"></AddCardFromHand>

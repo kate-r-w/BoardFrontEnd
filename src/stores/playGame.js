@@ -10,6 +10,7 @@ export const usePlayGameStore = defineStore('playGame', {
     playerTwoHand: [],
     stones: [],
     selectedCard: null,
+    locked: false
   }),
   actions: {
     async deal() {
@@ -54,6 +55,10 @@ export const usePlayGameStore = defineStore('playGame', {
           this.stones[i].playerTwo.push(...response.data.stones[i].playerTwo);
           this.stones[i].winner = response.data.stones[i].winner;
           this.stones[i].status = response.data.stones[i].status;
+        }
+        if (response.data.winner !== null) {
+          this.locked = true;
+          alert(`Player ${response.data.winner} wins!`);
         }
       } catch (error) {
         console.error('Error getting next state:', error);
