@@ -5,6 +5,7 @@ import { onMounted } from 'vue';
 import { usePlayGameStore } from '../stores/playGame';
 import { ref } from 'vue';
 import AddCardFromHand from './AddCardFromHand.vue';
+import GameOver from './GameOver.vue';
 
 const gameStore = usePlayGameStore();
 onMounted(() => {
@@ -24,7 +25,8 @@ const hand = ref(gameStore.playerTwoHand);
         </template>
       </Board>
     </div>
-    <Hand :hand="hand"></Hand>
+    <div :class="{ locked: gameStore.locked}"><Hand :hand="hand"></Hand></div>
+    <GameOver v-if="gameStore.gameOver"></GameOver>
   </div>
 </template>
 
@@ -35,5 +37,9 @@ div#play-vs-ai {
   border-collapse: separate;
   height: 80vh;
   width: 97vw;
+}
+div.locked {
+  pointer-events: none;
+  opacity: 0.5;
 }
 </style>
