@@ -10,7 +10,9 @@ export const usePlayGameStore = defineStore('playGame', {
     playerTwoHand: [],
     stones: [],
     selectedCard: null,
-    locked: false
+    locked: false,
+    gameOver: false,
+    winner: null
   }),
   actions: {
     async deal() {
@@ -40,6 +42,7 @@ export const usePlayGameStore = defineStore('playGame', {
       }
     },
     async playCard() {
+      this.locked = true;
       try {
         const response = await axios.post(`${API_BASE_URL}/getNextGameState`,
           { Board: this.stones, PlayerOneHand: this.playerOneHand, PlayerTwoHand: this.playerTwoHand }
@@ -56,9 +59,12 @@ export const usePlayGameStore = defineStore('playGame', {
           this.stones[i].winner = response.data.stones[i].winner;
           this.stones[i].status = response.data.stones[i].status;
         }
-        if (response.data.winner !== null) {
-          this.locked = true;
-          alert(`Player ${response.data.winner} wins!`);
+        if (response.data.winner != null) {
+          this.gameOver = true;
+          this.winner = response.data.winner;
+        }
+        else {
+          this.locked = false;
         }
       } catch (error) {
         console.error('Error getting next state:', error);
