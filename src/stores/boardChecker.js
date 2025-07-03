@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
-import { sharedLogic } from '@/utilities/sharedBoardLogic';
+import axios from 'axios';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useBoardStore = defineStore('board', {
   state: () => ({
@@ -17,14 +19,22 @@ export const useBoardStore = defineStore('board', {
       ],
   }),
   actions: {
-    async boardCheck() {
-      await sharedLogic.boardCheck(this.stones);
-    },
-    async getDeck() {
-      this.deck = await sharedLogic.getDeck();
-    },
     removeFromDeck(card) {
         this.deck = this.deck.filter(c => c.color != card.color || c.value != card.value);
+    },
+    async getDeck() {
+      const response = await axios.get(`${API_BASE_URL}/getDeck`);
+      this.deck = response.data;
+    },
+    async boardCheck() {
+      const response = await axios.post(`${API_BASE_URL}/StoneStatus`, { Board: this.stones });
+      if (response.status !== 200) {
+        throw new Error('Failed to update stone statuses');
+      }
+      for (let i = 0; i < this.stones.length; i++) {
+          this.stones[i].status = response.data[i].status;
+          this.stones[i].winner = response.data[i].player;
+        }
     }
   },
 });

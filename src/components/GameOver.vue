@@ -5,6 +5,9 @@ import { ref } from 'vue';
 const gameStore = usePlayGameStore();
 
 const winner = ref(gameStore.winner);
+function close() {
+  gameStore.gameOver = false;
+}
 </script>
 
 <template>
@@ -13,6 +16,8 @@ const winner = ref(gameStore.winner);
       <h1 v-if="winner == `Two`">You win!</h1>
       <h1 v-if="winner == `One`">You lose!</h1>
       <p>Game over.</p>
+      <button @click="gameStore.deal">restart</button>
+      <button @click="close">view board</button>
     </div>
   </div>
 </template>
