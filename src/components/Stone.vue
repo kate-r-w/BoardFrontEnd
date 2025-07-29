@@ -17,7 +17,8 @@ const props = defineProps({
 </template>
 <style scoped>
 div.stoneImage {
-  height: 15vh;
+  height: 11%;
+  flex-grow: 0;
   width: 100%;
   background-size: contain;
   background-position: center;
