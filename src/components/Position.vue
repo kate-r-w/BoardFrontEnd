@@ -38,8 +38,8 @@ const isWinner = computed(() => {
 
 <style scoped>
 div.position {
-  height: 40vh;
   display: flex;
+  flex-grow: 1;
   width: 100%;
   text-align: center;
   flex-direction: column;

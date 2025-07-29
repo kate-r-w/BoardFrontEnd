@@ -13,13 +13,13 @@ const props = defineProps({
 });
 </script>
 <template>
-    <div class="stoneImage" :class="{ hidden: isHidden }" :style="{ backgroundImage: `url(${ getStoneImage(props.stoneId) })` }">test</div>
+    <div class="stoneImage" :class="{ hidden: isHidden }" :style="{ backgroundImage: `url(${ getStoneImage(props.stoneId) })` }"></div>
 </template>
 <style scoped>
 div.stoneImage {
-  height: 120px;
+  height: 11%;
+  flex-grow: 0;
   width: 100%;
-  border: 1px solid #422e08;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
