@@ -11,7 +11,9 @@ export const usePlayGameStore = defineStore('playGame', {
     selectedCard: null,
     locked: false,
     gameOver: false,
-    winner: null
+    winner: null,
+    errorMessage: null,
+    errorType: null
   }),
   actions: {
     async deal() {
@@ -20,6 +22,7 @@ export const usePlayGameStore = defineStore('playGame', {
         this.updateState(response.data);
       } catch (error) {
         console.error('Error dealing cards:', error);
+        this.errorMessage = error.response ? error.response.data : 'An error occurred while dealing cards.';
       }
     },
     async removeCardFromHand(card) {
@@ -39,7 +42,8 @@ export const usePlayGameStore = defineStore('playGame', {
       this.locked = true;
       try {
         const response = await axios.post(`${API_BASE_URL}/getNextGameState`,
-          { Board: this.stones, PlayerOneHand: this.playerOneHand, PlayerTwoHand: this.playerTwoHand }
+          { Board: this.stones, PlayerOneHand: this.playerOneHand, PlayerTwoHand: this.playerTwoHand },
+          { params: { opponent: 'Kate' } }
         );
         this.updateState(response.data);
         if (response.data.winner != null) {
@@ -51,6 +55,8 @@ export const usePlayGameStore = defineStore('playGame', {
         }
       } catch (error) {
         console.error('Error getting next state:', error);
+        this.errorMessage = error.response ? error.response.data : 'An error occurred while playing the card.';
+        this.errorType = 'duringPlayCard';
       }
     },
     async updateState(apiResponse) {

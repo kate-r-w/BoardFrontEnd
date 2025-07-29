@@ -6,6 +6,7 @@ import { usePlayGameStore } from '../stores/playGame';
 import { ref } from 'vue';
 import AddCardFromHand from './AddCardFromHand.vue';
 import GameOver from './GameOver.vue';
+import ErrorModal from './ErrorModal.vue';
 
 const gameStore = usePlayGameStore();
 onMounted(() => {
@@ -14,6 +15,7 @@ onMounted(() => {
 
 const stones = ref(gameStore.stones);
 const hand = ref(gameStore.playerTwoHand);
+const aiHand = ref(gameStore.playerOneHand);
 </script>
 
 <template>
@@ -27,6 +29,7 @@ const hand = ref(gameStore.playerTwoHand);
     </div>
     <div :class="{ locked: gameStore.locked}"><Hand :hand="hand"></Hand></div>
     <GameOver v-if="gameStore.gameOver"></GameOver>
+    <ErrorModal v-if="gameStore.errorMessage"></ErrorModal>
   </div>
 </template>
 
