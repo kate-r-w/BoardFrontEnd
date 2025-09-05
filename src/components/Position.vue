@@ -38,14 +38,11 @@ const isWinner = computed(() => {
 
 <style scoped>
 div.position {
-  display: flex;
-  flex-grow: 1;
+  display: grid;
+  grid-template-columns: auto;
   width: 100%;
-  text-align: center;
-  flex-direction: column;
 }
 
 div.position.playerOne {
-  flex-direction: column-reverse;
 }
 </style>

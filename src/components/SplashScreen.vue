@@ -1,6 +1,6 @@
 <template>
   <div class="splash-screen">
-    <h1>Nine Fronts</h1>
+    <div class="header"><h1>Nine Fronts</h1></div>
     <div class="stone-images">
       <img v-for="index in 9" :key="index" :src="getStoneImage(index - 1)" alt="Stone" />
     </div>
@@ -23,35 +23,44 @@ function navigateTo(path) {
 </script>
 
 <style scoped>
-.splash-screen {
-  display: flex;
-  flex-direction: column;
+div.splash-screen {
+  display: grid;
+  grid-template-areas:
+    "headline"
+    "stones"
+    "buttons";
   justify-content: center;
   align-items: center;
+  align-content: center;
   height: 100vh;
 }
 
-h1 {
+div.header {
+  grid-area: "headline";
+}
+div.header h1 {
+  display: inline-block;
   font-size: 4rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   border-bottom: 2px solid #422e08;
+  text-align: center;
   padding-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
 }
 
-.stone-images {
-  display: flex;
-  justify-content: center;
-  margin-top: -2em;
+div.stone-images {
+  grid-area: "stones";
+  text-align: center;
+  margin: 0px;
 }
-
-.stone-images img {
+div.stone-images img {
   width: 40px;
   height: auto;
   margin: 0 5px;
 }
 
-.options button {
+div.options button {
   margin: 1rem;
   padding: 0.5rem 1rem;
   font-size: 1.2rem;
@@ -63,8 +72,7 @@ h1 {
   cursor: pointer;
   width: 200px;
 }
-
-.options button:hover {
-    background-color: #f5f0e6;
+div.options button:hover {
+  background-color: #f5f0e6;
 }
 </style>

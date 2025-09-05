@@ -35,11 +35,20 @@ const aiHand = ref(gameStore.playerOneHand);
 
 <style scoped>
 div#play-vs-ai {
-  margin: auto;
-  display: flex;
-  border-collapse: separate;
+  display: grid;
+  grid-template-columns:
+    auto
+    auto
+    auto
+    auto
+    auto
+    auto
+    auto
+    auto
+    auto; /* 9 columns */
   height: 80vh;
   width: 97vw;
+  justify-items: center;
 }
 div.locked {
   pointer-events: none;

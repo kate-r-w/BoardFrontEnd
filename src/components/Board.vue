@@ -28,11 +28,10 @@ defineProps({
 
 <style scoped>
 div.stone {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 11%;
+  display: grid;
+  grid-template-columns: auto;
+  width: 9vw;
   height: 100%;
+  justify-items: center;
 }
 </style>
