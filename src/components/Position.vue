@@ -30,7 +30,6 @@ const isWinner = computed(() => {
 
 <template>
   <div class="position" :class="props.player">
-    <slot name="addcard" :stone="props.stone" :player="props.player"></slot>
     <CardCombination :cardCombination="cardCombination" />
     <Stone :isHidden="!isWinner" :stoneId="props.stoneId" />
   </div>
@@ -38,11 +37,12 @@ const isWinner = computed(() => {
 
 <style scoped>
 div.position {
-  display: grid;
-  grid-template-columns: auto;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 div.position.playerOne {
+  flex-direction: column-reverse;
 }
 </style>
