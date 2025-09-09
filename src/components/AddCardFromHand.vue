@@ -25,11 +25,11 @@ const canAddCard = computed(() => {
 });
 </script>
 <template>
-      <div class="addCardSection">
-      <button class="add-card-button" v-if="canAddCard" @click="addCard()">
-        +
-      </button>
-    </div>
+<div class="addCardSection">
+  <button class="add-card-button" v-if="canAddCard" @click="addCard()">
+    +
+  </button>
+</div>
 </template>
 <style scoped>
 .add-card-button {
@@ -44,6 +44,9 @@ const canAddCard = computed(() => {
 
 div.addCardSection {
   height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-card-button:hover {

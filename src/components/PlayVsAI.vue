@@ -19,30 +19,39 @@ const aiHand = ref(gameStore.playerOneHand);
 </script>
 
 <template>
-  <div>
-    <div id="play-vs-ai" :class="{ locked: gameStore.locked}">
-      <Board :stones="stones">
-        <template #addcard="{ stone, player }">
-          <AddCardFromHand v-if="player == `playerTwo`" :stone="stone" :player="player"></AddCardFromHand>
-        </template>
-      </Board>
-    </div>
-    <div :class="{ locked: gameStore.locked}"><Hand :hand="hand"></Hand></div>
-    <GameOver v-if="gameStore.gameOver"></GameOver>
-    <ErrorModal v-if="gameStore.errorMessage"></ErrorModal>
+  <div id="play-vs-ai" :class="{ locked: gameStore.locked}">
+    <Board :stones="stones">
+      <template #addcard="{ stone, player }">
+        <AddCardFromHand v-if="player == `playerTwo`" :stone="stone" :player="player"></AddCardFromHand>
+      </template>
+    </Board>
+    <div :class="{ locked: gameStore.locked}" class="playerHand"><Hand :hand="hand"></Hand></div>
   </div>
+  <GameOver v-if="gameStore.gameOver"></GameOver>
+  <ErrorModal v-if="gameStore.errorMessage"></ErrorModal>
 </template>
 
 <style scoped>
 div#play-vs-ai {
-  margin: auto;
-  display: flex;
-  border-collapse: separate;
-  height: 80vh;
-  width: 97vw;
+  display: grid;
+  grid-template-columns:
+    repeat(9, 1fr);
+  grid-template-rows:
+    30% 10% 10% 30% 20%;
+  height: 93vh;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
 }
 div.locked {
   pointer-events: none;
   opacity: 0.5;
+}
+div.playerHand {
+  grid-column: 1 / span 9;
+  grid-row: 5 / span 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

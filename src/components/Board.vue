@@ -1,4 +1,5 @@
 <script setup>
+import AddCardFromHand from './AddCardFromHand.vue';
 import Position from './Position.vue';
 import Stone from './Stone.vue';
 
@@ -11,28 +12,21 @@ defineProps({
 </script>
 
 <template>
-  <div v-for="stone in stones" class="stone" :key="stone.id">
+  <template v-for="stone in stones" :key="stone.id">
     <Position :stoneId="stone.id" player="playerOne" :stone="stone">
-      <template #addcard="{ stone, player }">
-        <slot name="addcard" :stone="stone" :player="player"></slot>
-      </template>
     </Position>
+  </template>
+  <template v-for="stone in stones">
     <Stone :isHidden="stone.winner != null" :stoneId="stone.id" />
+  </template>
+  <template v-for="stone in stones" :key="stone.id">
+    <AddCardFromHand :stone="stone" player="playerTwo"></AddCardFromHand>
+  </template>
+  <template v-for="stone in stones">
     <Position :stoneId="stone.id" player="playerTwo" :stone="stone">
-      <template #addcard="{ stone, player }">
-        <slot name="addcard" :stone="stone" :player="player"></slot>
-      </template>
     </Position>
-  </div>
+  </template>
 </template>
 
 <style scoped>
-div.stone {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 11%;
-  height: 100%;
-}
 </style>

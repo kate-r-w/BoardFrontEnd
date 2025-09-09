@@ -71,6 +71,9 @@ const canAddCard = computed(() => {
 
 div.addCardSection {
   height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-card-button:hover {
