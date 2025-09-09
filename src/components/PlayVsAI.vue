@@ -38,7 +38,7 @@ div#play-vs-ai {
     repeat(9, 1fr);
   grid-template-rows:
     30% 10% 10% 30% 20%;
-  height: 95vh;
+  height: 93vh;
   padding: 10px;
   justify-content: center;
   align-items: center;
