@@ -20,6 +20,9 @@ export const usePlayGameStore = defineStore('playGame', {
       try {
         const response = await axios.get(`${API_BASE_URL}/getInitialGameState`);
         this.updateState(response.data);
+        this.locked = false;
+        this.errorMessage = null;
+        this.gameOver = false;
       } catch (error) {
         console.error('Error dealing cards:', error);
         this.errorMessage = error.response ? error.response.data : 'An error occurred while dealing cards.';

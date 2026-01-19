@@ -13,8 +13,6 @@ function retryPlay() {
 }
 function restartGame() {
   gameStore.deal();
-  gameStore.errorMessage = null;
-  gameStore.locked = false;
 }
 </script>
 
